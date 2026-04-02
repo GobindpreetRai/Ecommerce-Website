@@ -1,0 +1,96 @@
+:root {
+  --bg: #0b120e;
+  --card: #111521;
+  --text: #eaeefb;
+  --muted: #97a0b5;
+  --accent: #7aa2ff;
+  --accent-2: #ffd166;
+  --danger: #ff6b6b;
+  --success: #24d37d;
+}
+[data-theme="light"] {
+  --bg: #f7f8fb;
+  --card: #ffffff;
+  --text: #0b0d12;
+  --muted: #4a5568;
+  --accent: #2457ff;
+  --accent-2: #b7791f;
+  --danger: #c53030;
+  --success: #2f855a;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: var(--bg);
+  color: var(--text);
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1200px; margin: 0 auto; padding: 16px; }
+header {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(6px);
+  background: color-mix(in oklab, var(--bg) 85%, transparent);
+  border-bottom: 1px solid color-mix(in oklab, var(--text) 10%, transparent);
+}
+.nav { display:flex; align-items:center; gap:12px; padding:12px 16px; }
+.logo { font-weight: 800; letter-spacing: .5px; }
+.pill { padding: 8px 12px; border:1px solid color-mix(in oklab, var(--text) 10%, transparent); border-radius: 999px; }
+.btn { cursor:pointer; padding:10px 14px; border-radius: 12px; border:none; font-weight:600; }
+.btn.primary { background: var(--accent); color:#fff; }
+.btn.outline { background: transparent; color: var(--text); border:1px solid color-mix(in oklab, var(--text) 18%, transparent); }
+.btn.link { background: transparent; color: var(--accent); padding: 6px 8px; }
+.grid { display:grid; gap:16px; }
+.grid.goods { grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); }
+.card { background: var(--card); border:1px solid color-mix(in oklab, var(--text) 10%, transparent); border-radius:16px; overflow:hidden; }
+.card .pad { padding:12px; }
+.muted { color: var(--muted); }
+.banner { position:relative; overflow:hidden; border-radius:16px; background: linear-gradient(135deg, color-mix(in oklab, var(--accent) 30%, var(--bg)), color-mix(in oklab, var(--accent-2) 30%, var(--bg))); padding:28px; display:flex; justify-content:space-between; align-items:center; }
+.banner h2 { margin:0 0 8px 0; }
+.banner img { width: 220px; height:auto; border-radius: 12px; justify-content: center; align-items: center; display: flex; }
+
+/* Layout */
+.page { display:none; }
+.page.active { display:block; }
+
+/* Ads */
+.ad-side { position: fixed; right: 8px; top: 96px; width: 180px; }
+.ad-bottom { position: fixed; right: 12px; bottom: 12px; width: 260px; }
+.ad, .popup { background: var(--card); border:1px dashed color-mix(in oklab, var(--accent) 50%, transparent); border-radius:14px; overflow:hidden; box-shadow: 0 10px 30px color-mix(in oklab, #000 30%, transparent); }
+.ad header, .popup header { padding:8px 12px; background: color-mix(in oklab, var(--accent) 18%, var(--card)); font-weight:700; }
+.ad .body, .popup .body { padding:12px; }
+.ad .pulse { animation: pulse 2s infinite; }
+@keyframes pulse { 0%{transform:scale(1)} 50%{transform:scale(1.03)} 100%{transform:scale(1)} }
+
+/* Modal */
+.modal { position: fixed; inset: 0; display:none; align-items:center; justify-content:center; background: color-mix(in oklab, #000 50%, transparent); padding:20px; z-index:100; }
+.modal.active { display:flex; }
+.modal .dialog { width:min(780px, 96vw); background: var(--card); border-radius:16px; border:1px solid color-mix(in oklab, var(--text) 10%, transparent); overflow:hidden; }
+.modal header { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid color-mix(in oklab, var(--text) 10%, transparent); }
+.modal .content { padding:16px; }
+
+input, select, textarea { width:100%; padding:10px 12px; border-radius:12px; border:1px solid color-mix(in oklab, var(--text) 12%, transparent); background:transparent; color:var(--text); }
+.row { display:flex; gap:12px; }
+.row > * { flex:1; }
+.table { width:100%; border-collapse: collapse; }
+.table th, .table td { padding:10px; border-bottom: 1px solid color-mix(in oklab, var(--text) 10%, transparent); text-align:left; }
+.chip { display:inline-block; padding:6px 10px; border-radius:999px; border:1px solid color-mix(in oklab, var(--text) 16%, transparent); margin-right:8px; margin-bottom:8px; cursor:pointer; }
+
+.hidden { display:none !important; }
+
+/* Product thumbnails (uniform size for custom images) */
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+
+}
+
+.founder-img {
+  display: block;
+  margin: 20px auto;
+  border-radius: 12px;
+}

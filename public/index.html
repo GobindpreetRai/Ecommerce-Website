@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NILE</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <!-- Side & bottom ads -->
+  <aside class="ad-side ad">
+    <header>Sponsored</header>
+    <div class="body">
+      <div class="pulse">Side Ad – your content here</div>
+    </div>
+  </aside>
+  <aside class="ad-bottom ad">
+    <header>Deal</header>
+    <div class="body">Bottom corner ad – sticky promo</div>
+  </aside>
+
+  <!-- Popup ad -->
+  <div id="popupAd" class="modal">
+    <div class="dialog">
+      <header>
+        <strong>Limited Offer</strong>
+        <button class="btn outline" onclick="hidePopup()">X Close</button>
+      </header>
+      <div class="content">
+        <p>Animated pop-up ad! Save 20% on your first order.</p>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <nav class="nav container">
+      <a class="logo pill" href="#/">NILE</a>
+      <a class="pill" href="#/products">Products</a>
+      <a class="pill" href="#/payment">Payment</a>
+      <a class="pill" href="#/about">About & FAQ</a>
+      <a class="pill" href="#/settings">System / Preferences</a>
+      <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
+        <input id="searchInput" placeholder="Search products" />
+        <button class="btn outline" onclick="router.go('#/login')">Login / Register</button>
+        <button class="btn outline" onclick="router.go('#/cart')">Cart (<span id="cartCount">0</span>)</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- HOME / STORE FRONT -->
+    <section id="page-home" class="page active">
+      <div class="banner card" style=" background-image: url(photos/Artboard1.png) ;">
+        <div>
+          <img alt="banner" src="photos/NILE orig.png" />
+          <h2>Your one-stop shop</h2>
+          <p class="muted">Search, browse categories, and find great deals.</p>
+          <div style="display:flex; gap:8px; margin-top:8px;">
+            <button class="btn primary" onclick="router.go('#/products')">Shop Now</button>
+            <button class="btn outline" onclick="openSecurity()">Security</button>
+          </div>
+        </div>
+        
+      </div>
+
+      <h3 style="margin:24px 0 12px;">Categories</h3>
+      <div id="categoryChips"></div>
+
+      <h3 style="margin:24px 0 12px;">Featured</h3>
+      <div id="featuredGrid" class="grid goods"></div>
+    </section>
+
+    <!-- PRODUCTS / SEARCH -->
+    <section id="page-products" class="page">
+      <div class="row" style="margin: 8px 0 16px;">
+        <select id="categorySelect"></select>
+        <button class="btn outline" onclick="randomLootCrate()">Open Loot Crate</button>
+      </div>
+      <div id="productGrid" class="grid goods"></div>
+    </section>
+
+    <!-- CART / PAYMENT -->
+    <section id="page-payment" class="page">
+      <h2>Payment</h2>
+      <table class="table" id="cartTable">
+        <thead>
+          <tr><th>Item</th><th>Qty</th><th>Price</th><th>Subtotal</th><th></th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="row" style="margin-top:16px;">
+        <div>
+          <label>Shipping/Delivery</label>
+          <select id="shipping">
+            <option value="0">Free (5–7 days)</option>
+            <option value="7.99">Standard (3–4 days) — $7.99</option>
+            <option value="19.99">Express (1–2 days) — $19.99</option>
+          </select>
+        </div>
+        <div>
+          <label>Tax (%)</label>
+          <input id="tax" type="number" value="8.5" />
+        </div>
+      </div>
+      <div style="margin-top:16px; display:flex; gap:16px; align-items:center;">
+        <div>Total: <strong id="totalAmount">$0.00</strong></div>
+        <button class="btn primary" onclick="checkout()">Checkout</button>
+      </div>
+    </section>
+
+    <!-- LOGIN / REGISTER -->
+    <section id="page-login" class="page">
+      <div class="grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="card">
+          <div class="pad">
+            <h3>Log In</h3>
+            <label>Username</label>
+            <input id="loginUser" placeholder="Username" />
+            <label style="margin-top:8px; display:block;">Password</label>
+            <input id="loginPass" type="password" placeholder="Password" />
+            <div style="margin-top:8px; display:flex; gap:8px;">
+              <!--<button class="btn primary" onclick="login(loginUser, loginPass)">Log in</button>-->
+              <button class="btn primary" onclick="login(loginUser.value, loginPass.value)">Log in</button>
+
+              <button class="btn link" onclick="alert('Password reset link sent (demo).')">Forgot password?</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="pad">
+            <h3>Make New Account</h3>
+            <label>Username</label>
+            <input id="regUser" />
+            <label style="margin-top:8px; display:block;">Email</label>
+            <input id="regEmail" type="email" />
+            <label style="margin-top:8px; display:block;">Password</label>
+            <input id="regPass" type="password" />
+            <label style="margin-top:8px; display:block;">Re-enter Password</label>
+            <input id="testPass" type="password" />
+            <div style="margin-top:8px;">
+              <!--<button class="btn primary" onclick="register(regUser, regEmail, regPass, testPass)">Create Account</button>-->
+              <button class="btn primary" onclick="register(regUser.value, regEmail.value, regPass.value, testPass.value)">Create Account</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT / FAQ -->
+    <section id="page-about" class="page">
+      <div class="card">
+        <div class="pad">
+          <h2>About</h2>
+          <img src="photos/guy.png" alt="the founder" class="about-img">
+          <p class="muted">Our founder, John Nile, created the website so that people could buy computer parts.</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:12px;">
+        <div class="pad">
+          <h3>FAQ</h3>
+          <details open>
+            <summary>Question 1: Why</summary>
+            <p>IDK</p>
+          </details>
+          <details>
+            <summary>Question 2: What is the meaning of life?</summary>
+            <p>42</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- SYSTEM / PREFERENCES -->
+    <section id="page-settings" class="page">
+      <div class="grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="card"><div class="pad">
+          <h3>Settings</h3>
+          <div>
+            <label>Theme</label>
+            <div style="margin-top:6px; display:flex; gap:8px;">
+              <button class="btn outline" onclick="setTheme('dark')">Dark</button>
+              <button class="btn outline" onclick="setTheme('light')">Light</button>
+            </div>
+          </div>
+          <div style="margin-top:12px;">
+            <label>Animated Ads</label>
+            <div style="margin-top:6px;">
+              <input id="animAds" type="checkbox" checked onchange="toggleAnimatedAds(this.checked)" /> Enable animations
+            </div>
+          </div>
+        </div></div>
+        <div class="card"><div class="pad">
+          <h3>System</h3>
+          <ul>
+            <li><a href="#/faq">FAQs</a></li>
+            <li><a href="#/profile">Profile</a></li>
+            <li><a href="#/transactions">Transactions</a></li>
+            <li><a href="#/address">Address</a></li>
+            <li><a href="#/security">Security</a></li>
+            <li><a href="#/support">Customer Service</a></li>
+            <li><a href="#/history">Browsing History</a></li>
+          </ul>
+        </div></div>
+      </div>
+    </section>
+
+    <!-- PROFILE / TRANSACTIONS / ADDRESS / HISTORY / SUPPORT / SECURITY (simple placeholders) -->
+    <section id="page-profile" class="page"><h2>Profile</h2><p class="muted">Your profile details will appear here.</p></section>
+    <section id="page-transactions" class="page"><h2>Transactions</h2><p class="muted">List of past orders.</p></section>
+    <section id="page-address" class="page"><h2>Address</h2><p class="muted">Manage your shipping addresses.</p></section>
+    <section id="page-history" class="page"><h2>Browsing History</h2><ul id="historyList"></ul></section>
+    <section id="page-support" class="page"><h2>Customer Service</h2><p class="muted">Email support@example.com</p></section>
+    <section id="page-faq" class="page"><h2>FAQs</h2><p class="muted">Quick answers to common questions.</p></section>
+    <section id="page-cart" class="page"><h2>Your Cart</h2><div id="cartItems"></div><div style="margin-top:12px;"><a class="btn primary" href="#/payment">Proceed to Payment</a></div></section>
+    <section id="page-security" class="page"><h2>Security</h2><p class="muted">We care about your security. Button of security:</p><button class="btn outline" onclick="alert('Security check complete (demo).')">Run Security Check</button></section>
+  </main>
+
+  <!-- Product quick view modal -->
+  <div id="productModal" class="modal" onclick="if(event.target===this)closeModal()">
+    <div class="dialog">
+      <header>
+        <strong id="modalTitle">ITEM NAME</strong>
+        <button class="btn outline" onclick="closeModal()">X Close</button>
+      </header>
+      <div class="content">
+        <div class="row">
+          <img id="modalImg" alt="product" style="width:260px; border-radius:12px;" />
+          <div>
+            <div id="modalPrice" style="font-size:22px; font-weight:800; margin-bottom:8px;"></div>
+            <label>Options: sizes/colors</label>
+            <div style="display:flex; gap:8px; margin:8px 0;">
+              <select id="optSize">
+                <option>Small</option><option>Medium</option><option>Large</option>
+              </select>
+              <select id="optColor">
+                <option>Black</option><option>Blue</option><option>Red</option>
+              </select>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <button id="addToCartBtn" class="btn primary">Add to cart</button>
+              <span class="muted">Only $<span id="onlyPrice">0</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
+
